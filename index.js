@@ -1,19 +1,20 @@
 //.addEventListener agrega eventos al elemento seleccionado en este caso en click
 //https://developer.mozilla.org/es/docs/Web/API/EventTarget/addEventListener
-//de esta forma le damos un metodo a click que en este caso seria handleClick();
 var numberOfDrumButtons = document.querySelectorAll(".drum").length;
 //detectar click
 for(var i=0; i<numberOfDrumButtons;i++){
     document.querySelectorAll(".set .drum")[i].addEventListener("click",function(){
         var buttonInnerHTML = this.innerHTML;
         makeSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
         //que hacer cuando se detecta un click
     });
 
 }
 //detectar teclado
 document.addEventListener("keydown", function(event){
-    makeSound(event.key)
+    makeSound(event.key);
+    buttonAnimation(event.key);
 });
 
 //revisar la tecla hacer ruido
@@ -59,6 +60,14 @@ function makeSound(key){
 
 
     }
+}
+
+function buttonAnimation(currentKey) {
+    var activeButton = document.querySelector("."+currentKey);
+    activeButton.classList.add("pressed");
+    setTimeout(function(){
+        activeButton.classList.remove("pressed");
+    }, 100);
 }
 
 //tambien podria haberse hecho de esta forma mas compacta:
